@@ -1,4 +1,4 @@
-package domain.domain_service;
+package com.company.domain.domain_service;
 
 import com.company.domain.Price;
 

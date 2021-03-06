@@ -38,7 +38,7 @@ public class Item {
         return product;
     }
 
-    public Integer getQuantity() { return quantity }
+    public Integer getQuantity() { return quantity; }
 
     List<Product> products() {
         List<Product> products = new ArrayList<>();

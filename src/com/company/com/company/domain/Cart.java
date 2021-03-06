@@ -36,17 +36,16 @@ public class Cart {
         return this.items.size();
     }
 
-    public Order checkout() {
+    public List<Product> checkout() {
         List<Product> products = items.stream()
                 .map(Item::products)
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
 
-        Order order = new Order(products);
         this.isCheckedOut = true;
         apply(new CartCheckedOutEvent(this.id));
 
-        return order;
+        return products;
     }
 
     @Override

@@ -1,8 +1,9 @@
 package com.company;
 
 import com.company.domain.*;
+import com.company.domain.domain_service.CheckoutService;
+import com.company.domain.domain_service.CompetitorPricier;
 import com.company.service.CompetitorProductPriceService;
-import domain.domain_service.CompetitorPricier;
 import org.junit.jupiter.api.Test;
 
 import java.util.Currency;
@@ -59,11 +60,11 @@ class MainTest {
 
     @Test
     void shouldCreateAnOrderGivenTheShoppingCartIsCheckedOut() {
-        Cart cart1 = new Cart();
-        Price price = new Price(Currency.getInstance("INR"), 10.00);
-        cart1.addItem(new Item(new Product("IPad Prod", price)));
+        Cart cart = new Cart();
+        Price price = new Price(10.00);
+        cart.addItem(new Item(new Product("IPad Prod", price)));
 
-        Order order = cart1.checkout();
+        Order order = new CheckoutService().checkout(cart);
 
         assertEquals(order.getProducts().size(), 1);
     }
