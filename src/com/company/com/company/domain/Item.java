@@ -1,6 +1,7 @@
 package com.company.domain;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Item {
     private Product product;
@@ -35,5 +36,15 @@ public class Item {
 
     public Product product() {
         return product;
+    }
+
+    public Integer getQuantity() { return quantity }
+
+    List<Product> products() {
+        List<Product> products = new ArrayList<>();
+        for (int index = 0; index < this.quantity; index++) {
+            products.add(this.product);
+        }
+        return products;
     }
 }

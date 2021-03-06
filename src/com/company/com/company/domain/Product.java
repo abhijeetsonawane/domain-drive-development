@@ -2,9 +2,9 @@ package com.company.domain;
 
 public class Product {
     private String name;
-    private Price price;
+    private com.company.domain.Price price;
 
-    public Product(String name, Price price) {
+    public Product(String name, com.company.domain.Price price) {
         this.name = name;
         this.price = price;
     }

@@ -1,5 +1,6 @@
 package com.company.domain;
 
+import com.company.events.CartCheckedOutEvent;
 import com.company.events.DomainEvent;
 import com.company.events.ItemAddedInCartEvent;
 import com.company.events.ItemRemovedFromCartEvent;
@@ -7,10 +8,12 @@ import com.company.events.ItemRemovedFromCartEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Cart {
     private double id;
     private List<Item> items;
+    private Boolean isCheckedOut = false;
     private List<DomainEvent> domainEvents;
 
     public Cart() {
@@ -24,8 +27,26 @@ public class Cart {
         apply(new ItemAddedInCartEvent(this.id, item));
     }
 
+    public void removeItem(Item itemToBeRemoved) {
+        this.items.remove(itemToBeRemoved);
+        apply(new ItemRemovedFromCartEvent(this.id, itemToBeRemoved.product()));
+    }
+
     public int size(){
         return this.items.size();
+    }
+
+    public Order checkout() {
+        List<Product> products = items.stream()
+                .map(Item::products)
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+
+        Order order = new Order(products);
+        this.isCheckedOut = true;
+        apply(new CartCheckedOutEvent(this.id));
+
+        return order;
     }
 
     @Override
@@ -33,11 +54,6 @@ public class Cart {
         return "Cart{" +
                 "items=" + items +
                 '}';
-    }
-
-    public void removeItem(Item itemToBeRemoved) {
-        this.items.remove(itemToBeRemoved);
-        apply(new ItemRemovedFromCartEvent(this.id, itemToBeRemoved.product()));
     }
 
     private void apply(DomainEvent domainEvent){
