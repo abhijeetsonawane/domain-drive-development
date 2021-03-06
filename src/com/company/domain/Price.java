@@ -13,6 +13,6 @@ public class Price {
 
     @Override
     public String toString() {
-        return " "+ this.amount +" "+ currency;
+        return currency.getSymbol() + this.amount;
     }
 }

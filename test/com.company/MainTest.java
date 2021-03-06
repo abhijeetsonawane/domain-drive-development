@@ -7,9 +7,9 @@ import com.company.domain.Product;
 import org.junit.jupiter.api.Test;
 
 import java.util.Currency;
-import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class MainTest {
 
@@ -29,7 +29,7 @@ class MainTest {
     }
 
     @Test
-    void shouldReturnTrueGivenWeCompareTheSameCart(){
+    void shouldReturnTrueGivenWeCompareTheSameCart() {
         Cart cart = new Cart();
         Price price = new Price(Currency.getInstance("INR"), 10.00);
         cart.addItem(new Item(new Product("IPad Prod", price)));
@@ -38,7 +38,7 @@ class MainTest {
     }
 
     @Test
-    void shouldReturnFalseGivenTwoCarts(){
+    void shouldReturnFalseGivenTwoCarts() {
         Cart cart1 = new Cart();
         Price price = new Price(Currency.getInstance("INR"), 10.00);
         cart1.addItem(new Item(new Product("IPad Prod", price)));
